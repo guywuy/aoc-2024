@@ -20,7 +20,7 @@ export function Layout(props: {
   return (
     <>
       <Head>
-        <title>AOC 2023</title>
+        <title>AOC 2024</title>
       </Head>
       <HomeLink />
       <div class="ml-16 lg:ml-auto p-4 mx-auto max-w-screen-md">

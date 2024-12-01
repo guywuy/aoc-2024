@@ -7,10 +7,10 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>AOC 2023</title>
+        <title>AOC 2024</title>
       </Head>
       <div class="p-4 mx-auto max-w-screen-lg text-center">
-        <h1 class="text-xl font-bold">AOC 2023</h1>
+        <h1 class="text-xl font-bold">AOC 2024</h1>
       </div>
       <ol class="p-4 mx-auto max-w-screen-lg grid grid-cols-5 gap-2">
         {Array.from(Array(numDays)).map((d, i) => (
