@@ -7,6 +7,8 @@ import * as $_app from "./routes/_app.tsx";
 import * as $api_joke from "./routes/api/joke.ts";
 import * as $day1_1 from "./routes/day1/1.tsx";
 import * as $day1_2 from "./routes/day1/2.tsx";
+import * as $day2_1 from "./routes/day2/1.tsx";
+import * as $day2_2 from "./routes/day2/2.tsx";
 import * as $dayx_1 from "./routes/dayx/1.tsx";
 import * as $dayx_2 from "./routes/dayx/2.tsx";
 import * as $index from "./routes/index.tsx";
@@ -20,6 +22,8 @@ const manifest = {
     "./routes/api/joke.ts": $api_joke,
     "./routes/day1/1.tsx": $day1_1,
     "./routes/day1/2.tsx": $day1_2,
+    "./routes/day2/1.tsx": $day2_1,
+    "./routes/day2/2.tsx": $day2_2,
     "./routes/dayx/1.tsx": $dayx_1,
     "./routes/dayx/2.tsx": $dayx_2,
     "./routes/index.tsx": $index,
