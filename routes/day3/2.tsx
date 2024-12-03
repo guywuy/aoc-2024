@@ -7,8 +7,8 @@ type Data = string;
 
 export const handler: Handlers<Data> = {
   async GET(_, ctx) {
-    const text = await Deno.readTextFile("./routes/day3/input-test-2.txt");
-    // const text = await Deno.readTextFile("./routes/day3/input.txt");
+    // const text = await Deno.readTextFile("./routes/day3/input-test-2.txt");
+    const text = await Deno.readTextFile("./routes/day3/input.txt");
     const data = text.trim();
     return ctx.render(data);
   },
@@ -20,14 +20,30 @@ export default function Day({ data }: PageProps<Data>) {
   }
 
   // Split strings into array of substrings, split on 'do()' or 'dont()'.
-  // Then we can remove every even item.
+  const split = data.split(/(don't\(\)|do\(\))/g);
 
-  const parsed = data.match(/mul\(\d{1,3},\d{1,3}\)/g);
+  console.log(split);
+
+  let counts = true;
+  let validString = ""
+  split.forEach(item => {
+    if (item === "don't()") {
+      counts = false;
+      return;
+    } else if (item === "do()") {
+      counts = true;
+      return;
+    }
+    if (counts) {
+      validString = validString + item;
+    }
+  })
+
+  const parsed = validString.match(/mul\(\d{1,3},\d{1,3}\)/g);
 
   const numberArrays = parsed!.map((item) =>
     mapToInts(item.match(/\d{1,3}/g) as string[])
   );
-  console.log(numberArrays);
 
   const results = numberArrays.map(arr => arr[0] * arr[1]);
 
