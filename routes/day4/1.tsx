@@ -7,8 +7,8 @@ type Data = string[][];
 
 export const handler: Handlers<Data> = {
   async GET(_, ctx) {
-    const text = await Deno.readTextFile("./routes/day4/input-test.txt");
-    // const text = await Deno.readTextFile("./routes/day4/input.txt");
+    // const text = await Deno.readTextFile("./routes/day4/input-test.txt");
+    const text = await Deno.readTextFile("./routes/day4/input.txt");
     const data = text
       .trim()
       .split("\n")
@@ -35,8 +35,14 @@ export default function Day({ data }: PageProps<Data>) {
   // If found, increment total
   let valids = [];
 
-  for (let y = 0; y < data.length; y++) {
-    for (let x = 0; x < data[0].length; x++) {
+  const rowLength = data[0].length;
+  const rowValidLength = rowLength - 3;
+
+  const colLength = data.length;
+  const colValidLength = colLength - 3;
+
+  for (let y = 0; y < colLength; y++) {
+    for (let x = 0; x < rowLength; x++) {
       const letter = data[y][x];
       if (letter === "X") {
         // console.log({ x, y });
@@ -89,20 +95,27 @@ export default function Day({ data }: PageProps<Data>) {
           data.at(y + 3)?.at(x + 3),
         ];
         const arraysToCheck = [
-          arrayTop,
-          arrayBottom,
-          arrayRight,
-          arrayLeft,
-          arrayTopRight,
-          arrayTopLeft,
-          arrayBottomLeft,
-          arrayBottomRight,
+          y > 2 && arrayTop,
+          y < colValidLength && arrayBottom,
+          x < rowValidLength && arrayRight,
+          x > 2 && arrayLeft,
+          y > 2 && x < rowValidLength && arrayTopRight,
+          y > 2 && x > 2 && arrayTopLeft,
+          y < colValidLength && x > 2 && arrayBottomLeft,
+          y < colValidLength && x < rowValidLength && arrayBottomRight,
         ];
 
         arraysToCheck.forEach((arr, i) => {
           const valid = isXmas(arr);
           if (valid) {
-            console.log("valid at : ", { x, y }, 'going', i, 'with letters', arr);
+            console.log(
+              "valid at : ",
+              { x, y },
+              "going",
+              i,
+              "with letters",
+              arr
+            );
             valids.push({ x, y });
           }
         });

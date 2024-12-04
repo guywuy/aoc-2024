@@ -22,90 +22,48 @@ export default function Day({ data }: PageProps<Data>) {
     return <h1>Data not found</h1>;
   }
 
-  const isXmas = (stingArr: (string | undefined)[]) =>
-    stingArr.length === 4 &&
-    stingArr[0] === "X" &&
-    stingArr[1] === "M" &&
-    stingArr[2] === "A" &&
-    stingArr[3] === "S";
+  const isXmas = (surrounds: string[][]) => {
+    let left = false;
+    let right = false;
+    if (
+      (surrounds[0][0] === "M" && surrounds[2][2] === "S") ||
+      (surrounds[0][0] === "S" && surrounds[2][2] === "M")
+    ) {
+      left = true;
+    }
+    if (
+      (surrounds[0][2] === "M" && surrounds[2][0] === "S") ||
+      (surrounds[0][2] === "S" && surrounds[2][0] === "M")
+    ) {
+      right = true;
+    }
+    return left && right;
+  };
 
-  // For y in col
-  // for x in row
-  // If val is X, check each direction for letters making up XMAS
-  // If found, increment total
-  let valids = [];
+  const valids: {
+    x: number;
+    y: number;
+  }[] = [];
 
-  for (let y = 0; y < data.length; y++) {
-    for (let x = 0; x < data[0].length; x++) {
+  const rowLength = data[0].length;
+
+  const colLength = data.length;
+
+  for (let y = 0; y < colLength; y++) {
+    for (let x = 0; x < rowLength; x++) {
       const letter = data[y][x];
-      if (letter === "X") {
-        // console.log({ x, y });
-        const arrayRight = [
-          letter,
-          data[y][x + 1],
-          data[y][x + 2],
-          data[y][x + 3],
-        ];
-        const arrayLeft = [
-          letter,
-          data[y][x - 1],
-          data[y][x - 2],
-          data[y][x - 3],
-        ];
-        const arrayTop = [
-          letter,
-          data.at(y - 1)?.at(x),
-          data.at(y - 2)?.at(x),
-          data.at(y - 3)?.at(x),
-        ];
-        const arrayBottom = [
-          letter,
-          data.at(y + 1)?.at(x),
-          data.at(y + 2)?.at(x),
-          data.at(y + 3)?.at(x),
-        ];
-        const arrayTopLeft = [
-          letter,
-          data.at(y - 1)?.at(x - 1),
-          data.at(y - 2)?.at(x - 2),
-          data.at(y - 3)?.at(x - 3),
-        ];
-        const arrayTopRight = [
-          letter,
-          data.at(y - 1)?.at(x + 1),
-          data.at(y - 2)?.at(x + 2),
-          data.at(y - 3)?.at(x + 3),
-        ];
-        const arrayBottomLeft = [
-          letter,
-          data.at(y + 1)?.at(x - 1),
-          data.at(y + 2)?.at(x - 2),
-          data.at(y + 3)?.at(x - 3),
-        ];
-        const arrayBottomRight = [
-          letter,
-          data.at(y + 1)?.at(x + 1),
-          data.at(y + 2)?.at(x + 2),
-          data.at(y + 3)?.at(x + 3),
-        ];
-        const arraysToCheck = [
-          arrayTop,
-          arrayBottom,
-          arrayRight,
-          arrayLeft,
-          arrayTopRight,
-          arrayTopLeft,
-          arrayBottomLeft,
-          arrayBottomRight,
-        ];
 
-        arraysToCheck.forEach((arr) => {
-          const valid = isXmas(arr);
-          if (valid) {
-            console.log("valid at : ", { x, y });
-            valids.push({ x, y });
-          }
-        });
+      if (letter === "A" && y > 0 && x > 0 && y < colLength - 1 && x < rowLength - 1) {
+        const arr = [
+          [data[y - 1][x - 1], data[y - 1][x], data[y - 1][x + 1]],
+          [data[y][x - 1], data[y][x], data[y][x + 1]],
+          [data[y + 1][x - 1], data[y + 1][x], data[y + 1][x + 1]],
+        ];
+        const valid = isXmas(arr);
+        if (valid) {
+          console.log("valid at : ", { x, y }, "with letters", arr);
+          valids.push({ x, y });
+        }
       }
     }
   }
