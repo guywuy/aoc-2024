@@ -13,6 +13,8 @@ import * as $day3_1 from "./routes/day3/1.tsx";
 import * as $day3_2 from "./routes/day3/2.tsx";
 import * as $day4_1 from "./routes/day4/1.tsx";
 import * as $day4_2 from "./routes/day4/2.tsx";
+import * as $day5_1 from "./routes/day5/1.tsx";
+import * as $day5_2 from "./routes/day5/2.tsx";
 import * as $dayx_1 from "./routes/dayx/1.tsx";
 import * as $dayx_2 from "./routes/dayx/2.tsx";
 import * as $index from "./routes/index.tsx";
@@ -32,6 +34,8 @@ const manifest = {
     "./routes/day3/2.tsx": $day3_2,
     "./routes/day4/1.tsx": $day4_1,
     "./routes/day4/2.tsx": $day4_2,
+    "./routes/day5/1.tsx": $day5_1,
+    "./routes/day5/2.tsx": $day5_2,
     "./routes/dayx/1.tsx": $dayx_1,
     "./routes/dayx/2.tsx": $dayx_2,
     "./routes/index.tsx": $index,
